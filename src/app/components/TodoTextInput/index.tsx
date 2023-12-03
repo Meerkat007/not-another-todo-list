@@ -28,6 +28,13 @@ export const TodoTextInput = ({ placeholder, newTodo, onSave }: TodoTextInput.Pr
     [onSave, setInputText]
   );
 
+  const handleClickSubmit = (event) => {
+    if (inputText && inputText.trim() !== '') {
+      onSave(inputText);
+      setInputText('');
+    }
+  }
+
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputText(event.target.value);
@@ -54,15 +61,23 @@ export const TodoTextInput = ({ placeholder, newTodo, onSave }: TodoTextInput.Pr
   );
 
   return (
-    <input
-      className={classes}
-      type="text"
-      autoFocus
-      placeholder={placeholder}
-      value={inputText}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      onKeyDown={handleSubmit}
-    />
+    <div>
+      <input
+        className={classes}
+        type="text"
+        autoFocus
+        placeholder={placeholder}
+        value={inputText}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={handleSubmit}
+      />
+      <button
+        onClick={handleClickSubmit}
+      >
+        Add
+      </button>
+    </div>
+
   );
 };
